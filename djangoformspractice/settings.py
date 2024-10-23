@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'contact',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +58,7 @@ ROOT_URLCONF = 'djangoformspractice.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        "DIRS": [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +125,24 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = "contact.CustomUser"
+
+
+##### note the client id and secret are obtained from the respective developers 
+
+GITHUB_CLIENT_ID = config.GITHUB_CLIENT_ID
+GITHUB_CLIENT_SECRET = config.GITHUB_CLIENT_SECRET
+GITHUB_REDIRECT_URI = 'http://127.0.0.1:8000/github/callback/'
+
+# FACEBOOK_OAUTH_CLIENT_ID = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
+# FACEBOOK_OAUTH_CLIENT_SECRET = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET')
+
+FACEBOOK_CLIENT_ID = config.FACEBOOK_CLIENT_ID
+FACEBOOK_CLIENT_SECRET = config.FACEBOOK_CLIENT_SECRET
+FACEBOOK_REDIRECT_URI = 'http://localhost:8000/facebook/callback/'
+FACEBOOK_OAUTH_URL = 'https://www.facebook.com/v12.0/dialog/oauth'
+FACEBOOK_TOKEN_URL = 'https://graph.facebook.com/v12.0/oauth/access_token'
+FACEBOOK_USER_INFO_URL = 'https://graph.facebook.com/me?fields=id,name,email'
+
+
+

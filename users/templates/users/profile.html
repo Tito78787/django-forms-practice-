@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{%block content%}
+{% if user.is_authenticated %}
+    <p>Welcome,{{request.user.first_name}}!</p>
+{% else %}
+    <p>Please log in.</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Change profile details</button>
+    <a href="{% url 'users:picture' %}">upload a profile <picture></picture></a>
+
+</form>
+{%endblock%}

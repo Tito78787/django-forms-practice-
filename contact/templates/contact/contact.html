@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+</head>
+<body>
+    <h2>Contact Us</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send Message</button>
+    </form>
+            <a href="{% url 'users:register' %}">register</a>
+            
+            <a href="{% url 'users:login' %}">login</a>
+            <a href="{% url 'users:google_login' %}">Login with Google</a>
+            <a href="{% url 'users:github_login' %}">Login with github</a>
+            <a href="{% url 'users:facebook_login' %}">Login with facebook</a>
+
+    {% if form.errors %}
+        <div class="errors">
+            <ul>
+                {% for field in form %}
+                
+                    {% if field.errors %}
+                        {{field.name}}: {{field.errors.as_text}}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</body>
+</html>
